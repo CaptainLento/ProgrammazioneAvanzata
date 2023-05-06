@@ -1,0 +1,77 @@
+'negozio cassa automatica dove hai il tuo carrello e scegli i prodotti'
+'una sorta di ipotetica macchinetta ma che funziona come un negozio'
+'esempio amazon online'
+
+prodotto :: [Float] -> Int -> Float
+prodotto [] x = 0
+prodotto a x = if (x-1) >= (length a) || x == 0 then 0
+               else a !! (x-1)
+
+credito :: Float -> IO [Float]
+credito 0 = return []
+credito x = do
+      putStrLn("Inserisci monete:")
+      str <- getLine
+      let coin = read str :: Float
+      if isValid coin then do nextCoin <- credito (round'(x - (min' coin x))) 
+                              return (coin:nextCoin)
+      else do nextCoin <- credito (x)
+              return nextCoin
+
+min' :: Float->Float->Float
+min' x y = if x<y then x
+            else y
+
+isValid :: Float->Bool
+isValid x = if x==0.1 || x==0.2 || x==0.5|| x==1.0 || x==2.00 || x==5.00 || x==10.00 || x==20.00 then True
+            else False
+
+round' :: Float -> Float
+round' x = fromIntegral(round (x*10))/ 10
+
+sort :: (Ord a) => [a] -> [a]  
+sort [] = []  
+sort (x:xs) =   
+    let minore = sort [a | a <- xs, a <= x]  
+        maggiore = sort [a | a <- xs, a > x]  
+    in  maggiore ++ [x] ++ minore 
+
+resto :: Float->[Float]->[Float]
+resto 0 z = []
+resto x [] = []
+resto x (z:zs) = if z<=x then [z] ++ resto (round'(x-z)) zs
+                 else resto x zs
+
+remove :: (Ord a) => [a] -> [a] -> [a]
+remove x [] = x
+remove [] y = []
+remove (x:xs) (y:ys) = if x==y then remove xs ys
+                       else if x>y then x:(remove xs (y:ys))
+                            else remove (x:xs) ys
+
+main = do 
+      let start = [1.0,0.5,0.2,0.1]
+      let loop money = do
+                putStrLn("* ACCETTA da 0.10 a 2.00 *")
+                print(money)
+                let costi = [2.50,1.00,4.80,0.60]
+                putStrLn "SCEGLI UN PRODOTTO" 
+                putStrLn "1:Panino 2:Bibita 3:pasta 4:Caffe"
+                print costi
+                input1 <- getLine
+                let selected = (read input1 :: Int)
+                let prezzo = prodotto costi selected
+                putStrLn(show(prezzo) ++ " $")
+                array <- credito prezzo
+                let tot = sort(money++array)
+                print(tot)
+                let cred = sum(array)
+                print(cred)
+                print(round'(cred-prezzo))
+                let rest = resto (round'(cred-prezzo)) tot
+                putStrLn("resto: " ++ show(rest))
+                loop (remove (sort tot) (sort rest))
+      loop start
+	  	  
+'Problema: cosi posso prendere un prodotto alla volta e mi da il resto uno alla volta'
+'ho provato ad inserire un array di prodotti e prenderli in blocco mettendoli nel carrello ma nei test dava un errore'

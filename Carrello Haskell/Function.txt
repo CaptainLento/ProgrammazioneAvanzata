@@ -1,0 +1,9 @@
+-- 1 assegna il prezzo in base al prodotto scelto
+-- 2 chiede monete finchè non si arriva al prezzo
+-- 3 calcola il minore tra due numeri
+-- 4 verifica se una moneta o banconota valida
+-- 5 arrotonda alla prima cifra decimal
+-- 6 riordina l'array in ordine discendente
+-- 7 calcola le monetine da dare per il resto
+-- 8 rimuove un array dall'altro
+-- 9 main loopato
