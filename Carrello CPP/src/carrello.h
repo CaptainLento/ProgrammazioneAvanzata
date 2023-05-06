@@ -1,12 +1,10 @@
 /*
- * Prodotto.h
- *
  *  Created on: 10 dic 2022
- *      Author: 39345
+ *      Author: cUPCAKE
  */
 
-#ifndef MENU_H_
-#define MENU_H_
+#ifndef CARRELLO_H_
+#define CARRELLO_H_
 
 #include <iostream>
 #include <vector>
@@ -53,7 +51,7 @@ class Carrello{
 		 * se un prodotto è vuoto, lo rimuove dal menu
 		 */
 		void stampa(){
-			cout << "[-------MENU------]" << endl;
+			cout << "[-------CARRELLO------]" << endl;
 			for(unsigned i = 0; i < elenco.size(); ++i){
 				string s = elenco.at(i)->toString();
 				if(s!=""){
@@ -68,4 +66,4 @@ class Carrello{
 };
 
 
-#endif /* MENU_H_ */
+#endif /* CARRELLO_H_ */

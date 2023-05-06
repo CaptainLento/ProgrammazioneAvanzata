@@ -1,6 +1,4 @@
 /*
- * Ingrediente.h
- *
  *  Created on: 10 dic 2022
  *      Author: 39345
  */

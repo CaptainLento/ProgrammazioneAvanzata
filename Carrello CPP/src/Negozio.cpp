@@ -1,3 +1,8 @@
+/*
+ *  Created on: 10 dic 2022
+ *      Author: 39345
+ */
+
 
 #include <iostream>
 #include "Ingrediente.h"
